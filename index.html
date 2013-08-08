@@ -25,7 +25,7 @@
                                 <span ng-show="child.TaskType == 'Folder'">
                                     <button class="toggle" ng-click="toggleMinimized(child)" ng-switch on="child.minimized"><span ng-switch-when="true">&#x25B6;</span><span ng-switch-default>&#x25BC;</span></button>
                                 </span>
-                                <div>{{child.TaskType + ' - ' + child.Name}}</div>
+                                <div>{{child.TaskType + ' - ' + child.Name + ' (' + child.Id + ')'}}</div>
                                 <div>{{child.TotalCost | currency}}</div>
                                 <div>{{child.TotalHours + ' hrs'}}</div>
                                 <span ng-show="child.TaskType == 'Folder'">
@@ -55,7 +55,7 @@
                     </ol>
                 </div>
                 <div>
-                    {{selected}}
+                    {{data}}
                 </div>
             </div>
         </div>

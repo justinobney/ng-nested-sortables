@@ -1,16 +1,18 @@
 app.controller('TreeController', function($scope, $timeout) {
 
+    var counter = 0;
+
     $scope.selected = null;
 
     $scope.setSelected = function(child){
         $scope.selected = child;
-        console.log(child);
     };
 
     $scope.pushToSelected = function(task){
         var target = (!!$scope.selected) ? $scope.selected.children : $scope.data.children;
-        console.log(target);
-        target.push(task);
+        var clone = angular.copy(task, {});
+        clone.Id += "_" + ++counter;
+        target.push(clone);
     };
 
     $scope.data = {
