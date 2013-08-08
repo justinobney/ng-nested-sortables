@@ -10,6 +10,12 @@ app.controller('TreeController', function($scope, $timeout) {
 
     $scope.pushToSelected = function(task){
         var target = (!!$scope.selected) ? $scope.selected.children : $scope.data.children;
+
+        if ( !$scope.selected || $scope.selected.TaskType !== "Folder") {
+            alert('You can only add to folders');
+            return;
+        }
+
         var clone = angular.copy(task, {});
         clone.Id += "_" + ++counter;
         target.push(clone);
