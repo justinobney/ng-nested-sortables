@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>
+            AngularJS - Nested Sortables - jsFiddle demo by justinobney
+        </title>
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="css/result-light.css">
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css">
+        <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-app="app" ng-cloak>
+            <div ng-controller="TreeController">
+                <div ng-show="loading">Loading</div>
+                <div><button ng-click="addChild(data)">+ New</button></div>
+                <div class="live">
+                    <ol id="masterList"
+                        ui-nested-sortable="{listType: 'ol',items: 'li',doNotClear: true,placeholder: 'ui-state-highlight',forcePlaceholderSize: true,toleranceElement: '> div', isAllowed: isAllowed}"
+                        ui-nested-sortable-update="update($event, $ui)">
+                        <li ya-tree="child in data.children at ol" ng-class="{minimized:child.minimized}">
+                            <div ng-class="{'selected': child.Id == selected.Id }" ng-click="setSelected(child)">
+                                <span ng-show="child.TaskType == 'Folder'">
+                                    <button class="toggle" ng-click="toggleMinimized(child)" ng-switch on="child.minimized"><span ng-switch-when="true">&#x25B6;</span><span ng-switch-default>&#x25BC;</span></button>
+                                </span>
+                                <div>{{child.TaskType + ' - ' + child.Name}}</div>
+                                <div>{{child.TotalCost | currency}}</div>
+                                <div>{{child.TotalHours + ' hrs'}}</div>
+                                <span ng-show="child.TaskType == 'Folder'">
+                                    <button ng-click="addChild(child)">+</button>
+                                </span>
+                                <button ng-click="remove(child)">x</button>
+                            </div>
+                            <ol ng-class="{pregnant:child.children.length}"></ol>
+                        </li>
+                    </ol>
+                </div>
+                <div class="shadow">
+                    <ol id="pickList" >
+                        <li ya-tree="child in data2.children at ol">
+                            <div>
+                                <div>
+                                    <button ng-click="pushToSelected(child)">
+                                        <i class="icon-chevron-left"></i>
+                                    </button>
+                                    {{child.TaskType + ' - ' + child.Name}}
+                                </div>
+                                <div>{{child.TotalCost | currency}}</div>
+                                <div>{{child.TotalHours + ' hrs'}}</div>
+                            </div>
+                            <ol ng-class="{pregnant:child.children.length}"></ol>
+                        </li>
+                    </ol>
+                </div>
+                <div>
+                    {{selected}}
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/jquery.nestedSortable.js"></script>
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/controller.js"></script>
+    </body>
+</html>
