@@ -4,6 +4,7 @@ app.controller('TreeController', function($scope, $timeout) {
 
     $scope.setSelected = function(child){
         $scope.selected = child;
+        console.log(child);
     };
 
     $scope.pushToSelected = function(task){
